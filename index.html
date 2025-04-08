@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora de Peso</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+      background: #f0f0f0;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .mensaje {
+      font-size: 22px;
+      color: red;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .imagen-obeso {
+      margin-top: 30px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      animation: girar 3s linear infinite;
+    }
+
+    @keyframes girar {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Calculadora de Peso</h1>
+  <p>Ingrese su peso (kg):</p>
+  <input type="number" id="pesoInput" placeholder="Ejemplo: 101">
+  <button onclick="verificarPeso()">Verificar</button>
+
+  <div id="resultado" class="mensaje"></div>
+  <div id="contenedorImagen"></div>
+  <audio id="audioObeso" src="./imagen/oye-gela-escuchate-esto-saturado.mp3" autoplay loop></audio> 
+
+  <script>
+    function verificarPeso() {
+      const peso = parseFloat(document.getElementById("pesoInput").value);
+      const resultado = document.getElementById("resultado");
+      const contenedor = document.getElementById("contenedorImagen");
+      const audio = document.getElementById("audioObeso");
+
+      resultado.innerHTML = "";
+      contenedor.innerHTML = "";
+      audio.pause();
+      audio.currentTime = 0;
+
+      if (peso > 100) {
+        resultado.textContent = "Eres obeso.";
+        
+        const imagen = document.createElement("img");
+        imagen.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReDIbQtoxJGd1v0Ha09D1_PM_B1N1uEe8rbU9Gn6Vga5rYU4qLAaG4trhP2Dc8WAb_I0Y&usqp=CAU"; 
+       
+        imagen.alt = "No gordas";
+        imagen.className = "imagen-obeso";
+        contenedor.appendChild(imagen);
+        
+        audio.play();
+      } else {
+        resultado.textContent = "Peso dentro del rango normal.";
+      }
+    }
+  </script>
+
+</body>
+</html>
